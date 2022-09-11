@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/semantic.min.css" />
+    <link rel="stylesheet" href="orgchart/jquery.orgchart.min.css" />
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="js/semantic.min.js"></script>
+    <script src="orgchart/jquery.orgchart.min.js"></script>
+</head>
+<body>
+<style>
+    .orgchart-container {
+        border: none !important;
+        overflow-x: scroll !important;
+        text-align: center;
+    }
+
+    .orgchart-container::-webkit-scrollbar {
+        width: auto !important;
+    }
+
+    .orgchart-container::-webkit-scrollbar-thumb {
+        background: #ccc !important;
+    }
+    .orgchart {
+        background: none !important;
+        background-image: none !important;
+    }
+
+    .orgchart .node .title {
+        background-color: rgba(30, 114, 183, 0.8);
+        font-size: 1.0rem;
+    }
+    .orgchart .node .block {
+        border: 1px solid rgb(6 182 243);
+    }
+    .orgchart .lines .topLine {
+        border-top: 2px solid rgb(6 182 243);
+    }
+    .orgchart .lines .leftLine {
+        border-left: 1px solid rgb(6 182 243);
+    }
+    .orgchart .lines .rightLine {
+        border-right: 1px solid rgb(6 182 243);
+    }
+    .orgchart .lines .downLine {
+        background-color: rgb(6 182 243);
+    }
+    .orgchart .hierarchy::before {
+        content: "";
+        position: absolute;
+        top: -11px;
+        left: 0;
+        width: 100%;
+        border-top: 2px solid rgba(30, 114, 183, 0.8);
+        box-sizing: border-box;
+    }
+    .orgchart>ul>li>ul li>.node::before {
+        background-color: rgba(30, 114, 183, 0.8);
+    }
+    .orgchart .node:not(:only-child)::after {
+        background-color: rgba(30, 114, 183, 0.8);
+    }
+    .orgchart .node .title {
+        line-height: 1!important;
+        height: auto!important;
+        overflow: inherit!important;
+        white-space: normal!important;
+        position: relative;
+        padding: 10px 0 5px;
+        width: 100%;
+    }
+    .orgchart .node {
+        width: 280px!important;
+    }
+    .oci {
+        display: none;
+    }
+    .flex-content {
+        display: flex;
+        align-items: center;
+        padding: 10px;
+    }
+    .flex-content div {
+        text-align: left;
+    }
+    .flex-content .head {
+        font-weight: 600;
+        font-size: 1.1em;
+    }
+    .flex-content img {
+        width: 2.5em;
+        height: auto;
+        margin-right: 10px;
+    }
+</style>
+
+<div class="ui one column grid">
+    <div class="column">
+        <div id="chart-container" class="orgchart-container"></div>
+    </div>
+</div>
+<script>
+
+    $(document).ready(function () {
+        const ds = {
+            'name': 'UzLITI Engineering',
+            'title': 'Sarvar R.',
+            'children': [
+                {'name': 'Bo Miao', 'title': 'department manager'},
+                {
+                    'name': 'Su Miao', 'title': 'department manager', 'office': '???',
+                    'children': [
+                        {'name': 'Tie Hua', 'title': 'senior engineer', 'office': '???'},
+                        {'name': 'Hei Hei', 'title': 'senior engineer', 'office': '???'}]
+                },
+                {'name': 'Yu Jie', 'title': 'department manager', 'office': '??'},
+                {'name': 'Yu Li', 'title': 'department manager', 'office': '??'},
+                {'name': 'Hong Miao', 'title': 'department manager', 'office': '??'},
+                {'name': 'Yu Wei', 'title': 'department manager', 'office': '??'},
+                {'name': 'Chun Miao', 'title': 'department manager', 'office': '??'},
+                {'name': 'Yu Tie', 'title': 'department manager', 'office': '??'}]
+        };
+        const nodeTemplate = function (data) {
+            return `
+                    <div class="title">${data.name}</div>
+                                <div class="block">
+                        <div class="flex-content">
+                          <img class="ui circular image" src="images/ava.png" />
+                          <div class="">
+                            <div class="head"> ${data.title}</div>
+                            <a class="" href="#">25 сотрудников</a>
+                          </div>
+                        </div>
+                        </div>`;
+        };
+        const oc = $('#chart-container').orgchart({
+            'data': ds,
+            'nodeTemplate': nodeTemplate,
+            // 'direction': 'l2r'
+        });
+    });
+
+
+</script>
+</body>
+</html>
